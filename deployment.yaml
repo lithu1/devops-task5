@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nodejs
+  template:
+    metadata:
+      labels:
+        app: nodejs
+    spec:
+      containers:
+      - name: nodejs-container
+        image: node:14
+        command: ["node"]
+        args: ["-e", "require('http').createServer((_,res)=>res.end('Hello')).listen(3000)"]
+        ports:
+        - containerPort: 3000
